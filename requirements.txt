@@ -1,0 +1,15 @@
+# Core libraries
+pandas==2.2.2
+numpy==1.26.4
+
+# NLP & text processing
+nltk==3.9.1
+regex==2024.9.11
+
+# Semantic embedding
+sentence-transformers==3.2.1
+torch>=2.3.0
+
+# Optional (tampilan hasil & analisis)
+scikit-learn==1.5.2
+tqdm==4.67.1
