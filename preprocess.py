@@ -76,7 +76,6 @@ def preprocess_query(query):
     return query.strip()
 
 def display_search_results_clean(results, query, df):
-    """Tampilkan hasil pencarian gaya minimalis (tanpa emoji)"""
     print(f"\nHasil pencarian untuk: {query}")
     print(f"{len(results)} hasil ditemukan.\n")
 

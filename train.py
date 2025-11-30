@@ -12,22 +12,6 @@ PROCESSED_PATH = './dataset/processed_documents.csv'
 MODEL_DIR = './dataset/models'
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-def train_bm25(df):
-    print("\n=== Training BM25 Model ===")
-    documents = df['processed_document'].tolist()
-
-    bm25 = BM25(k1=1.5, b=0.75)
-    bm25.fit(documents)
-
-    # Simpan model BM25 sederhana (idf & param)
-    np.save(os.path.join(MODEL_DIR, 'bm25_idf.npy'), bm25.idf)
-    np.save(os.path.join(MODEL_DIR, 'bm25_vocab.npy'), list(bm25.vocab))
-    print("✅ BM25 model trained and saved successfully!")
-    print(f"Vocabulary size: {len(bm25.vocab)} terms")
-    print(f"Average document length: {bm25.avg_doc_length:.1f} words")
-    return bm25
-
-
 def train_semantic(df):
     print("\n=== Training Semantic Embedding ===")
     train_embedding(df, model_name='all-MiniLM-L6-v2', save_dir=MODEL_DIR)
@@ -59,18 +43,9 @@ def main():
 
     mode = sys.argv[1].lower()
 
-    if mode == '-bm25':
-        train_bm25(df)
-
-    elif mode == '-embedding':
-        train_semantic(df)
-
-    elif mode == 'all':
-        print("\n🚀 Training BM25 dan Semantic Embedding sekaligus...")
-        bm25 = train_bm25(df)
+    if mode == '-embedding':
         train_semantic(df)
         print("\n✅ Semua model berhasil dilatih dan disimpan!")
-
     else:
         print(f"❌ Mode '{mode}' tidak dikenal. Gunakan 'bm25', 'embedding', atau 'all'.")
 
